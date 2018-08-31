@@ -36,15 +36,164 @@ $(document).ready(function(){
     if(over == true){
       return 0;
     }
-    do{
-    var move_ind = Math.floor(Math.random()*9);
-    console.log(move_ind);
-    var cls = getClass[move_ind];
-    console.log($(cls).text());
-    }while($(cls).text() != '');
-    var cs = getClass[move_ind];
-    $(cs).html(com_sign);
-    check_result();
+    var ind = 'NO';
+    ind = myWinning();
+    console.log("Got index");
+    console.log(ind);
+    if(ind != 'NO'){
+      $(ind).html(com_sign);
+      $(ind).prop('onClick',null).off('click');
+      check_result();
+    }
+    else
+      ind = oppLose();
+    console.log("Got index");
+    console.log(ind);
+    if(ind != 'NO'){
+      $(ind).html(com_sign);
+      $(ind).prop('onClick',null).off('click');
+      check_result();
+    }
+    else{
+      do{
+      var move_ind = Math.floor(Math.random()*9);
+      console.log(move_ind);
+      var cls = getClass[move_ind];
+      console.log($(cls).text());
+      }while($(cls).text() != '');
+      var cs = getClass[move_ind];
+      $(cs).html(com_sign);
+      $(cs).prop('onClick',null).off('click');
+      check_result();
+    }
+    }  
+  function myWinning(){
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i]).text() == com_sign && $(getClass[i+1]).text() == com_sign){
+        if($(getClass[i+2]).text() == '')
+          return getClass[i+2];
+    }
+    }
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i+1]).text() == com_sign && $(getClass[i+2]).text() == com_sign){
+        if($(getClass[i]).text() == '')
+          return getClass[i];
+      }
+    }
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i]).text() == com_sign && $(getClass[i+2]).text() == com_sign){
+        if($(getClass[i+1]).text() == '')
+          return getClass[i+1];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i]).text() == com_sign && $(getClass[i+3]).text() == com_sign){
+        if($(getClass[i+6]).text() == '')
+          return getClass[i+6];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i+3]).text() == com_sign && $(getClass[i+6]).text() == com_sign){
+        if($(getClass[i]).text() == '')
+          return getClass[i];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i]).text() == com_sign && $(getClass[i+6]).text() == com_sign){
+        if($(getClass[i+3]).text() == '')
+          return getClass[i+3];
+      }
+    }
+    if($(".first").text() == com_sign && $(".fifth").text() == com_sign){
+      if($(".ninth").text() == '')
+        return ".ninth";
+    }
+    else if($(".first").text() == com_sign && $(".ninth").text() == com_sign){
+      if($(".fifth").text() == '')
+        return ".fifth";
+    }
+    else if($(".fifth").text() == com_sign && $(".ninth").text() == com_sign){
+      if($(".first").text() == '')
+        return ".first";
+    }
+    else if($(".third").text() == com_sign && $(".fifth").text() == com_sign){
+      if($(".seventh").text() == '')
+        return ".seventh";
+    }
+    else if($(".fifth").text() == com_sign && $(".seventh").text() == com_sign){
+      if($(".third").text() == '')
+        return ".third";
+    }
+    else if($(".third").text() == com_sign && $(".seventh").text() == com_sign){
+      if($(".fifth").text() == '')
+        return ".fifth";
+    }
+    else
+      return 'NO';
+  }
+  function oppLose(){
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i]).text() == user_sign && $(getClass[i+1]).text() == user_sign){
+        if($(getClass[i+2]).text() == '')
+          return getClass[i+2];
+      }
+    }
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i+1]).text() == user_sign && $(getClass[i+2]).text() == user_sign){
+        if($(getClass[i]).text() == '')
+          return getClass[i];
+      }
+    }
+    for(var i = 0; i<3; i+=3){
+      if($(getClass[i]).text() == user_sign && $(getClass[i+2]).text() == user_sign){
+        if($(getClass[i+1]).text() == '')
+          return getClass[i+1];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i]).text() == user_sign && $(getClass[i+3]).text() == user_sign){
+        if($(getClass[i+6]).text() == '')
+          return getClass[i+6];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i+3]).text() == user_sign && $(getClass[i+6]).text() == user_sign){
+        if($(getClass[i]).text() == '')
+          return getClass[i];
+      }
+    }
+    for(var i = 0; i<3; i+=1){
+      if($(getClass[i]).text() == user_sign && $(getClass[i+6]).text() == user_sign){
+        if($(getClass[i+3]).text() == '')
+          return getClass[i+3];
+      }
+    }
+    if($(".first").text() == user_sign && $(".fifth").text() == user_sign){
+      if($(".ninth").text() == '')
+        return ".ninth";
+    }
+    else if($(".first").text() == user_sign && $(".ninth").text() == user_sign){
+      if($(".fifth").text() == '')
+        return ".fifth";
+    }
+    else if($(".fifth").text() == user_sign && $(".ninth").text() == user_sign){
+      if($(".first").text() == '')
+        return ".first";
+    }
+    else if($(".third").text() == user_sign && $(".fifth").text() == user_sign){
+      if($(".seventh").text() == '')
+        return ".seventh";
+    }
+    else if($(".fifth").text() == user_sign && $(".seventh").text() == user_sign){
+      if($(".third").text() == '')
+        return ".third";
+    }
+    else if($(".third").text() == user_sign && $(".seventh").text() == user_sign){
+      if($(".fifth").text() == '')
+        return ".fifth";
+    }
+    else
+      return 'NO';
   }
   function check_result(){
     var flag = 0;
